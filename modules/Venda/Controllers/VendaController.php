@@ -1,20 +1,25 @@
 <?php
 
-namespace Modules\Produto\Controllers;
+namespace Modules\Venda\Controllers;
 
 use App\Http\Controllers\Controller;
 
-use Modules\Produto\Request\ProdutoRequest;
-use Modules\Produto\Services\Interfaces\ProdutoServiceInterface;
+use Modules\Venda\Request\VendaRequest;
+use Modules\Venda\Services\Interfaces\VendaServiceInterface;
 use Exception;
+use Modules\Produto\Services\Interfaces\ProdutoServiceInterface;
 
-class ProdutoController extends Controller
+
+class VendaController extends Controller
 {
     protected $service;
+    protected $serviceProduto;
 
-    public function __construct(ProdutoServiceInterface $service)
+    public function __construct(VendaServiceInterface $service,
+                                ProdutoServiceInterface $serviceProduto)
     {
         $this->service = $service;
+        $this->serviceProduto = $serviceProduto;
     }
 
     /**
@@ -23,8 +28,8 @@ class ProdutoController extends Controller
     public function index()
     {
         try {
-            $produtos = $this->service->list();
-            return view('produto.listar', compact('produto'));
+            $vendas = $this->service->list();
+            return view('venda.listar', compact('vendas'));
         } catch (Exception $ex) {
             report($ex);
             return response()->json(['message' => 'Falha ao efetuar a listagem Web'], 500);
@@ -37,16 +42,19 @@ class ProdutoController extends Controller
     public function register()
     {
         try {
+            $produtos = $this->serviceProduto->list();
 
             // Monta retorno de campos para a tela.
             $dados = array(
-                'title_page'        => 'Cadastrar Produto',
-                'produto'             => null,
+                'title_page'        => 'Cadastrar Venda',
+                'amount'             => null,
+                'products'           => $produtos,
+                'listProdutos'       => [],
                 'MANTER'            => 'Cadastrar'
             );
 
             // Retorna para a página de edição.
-            return view('produto/manter', $dados);
+            return view('livro/manter', $dados);
 
         } catch (Exception $ex) {
             report($ex);
@@ -64,29 +72,41 @@ class ProdutoController extends Controller
             // Verifica se código foi informado.
             if (empty($id)) {
                 // Redireciona usuário para tela de consulta.
-                return redirect()->route('indexProduto')
+                return redirect()->route('indexVenda')
                     ->with('class', 'alert-warning')
-                    ->with('message', 'Código do Produto não foi informado.');
+                    ->with('message', 'Código da Venda não foi informado.');
             }
 
-            $produto = $this->service->find($id);
+            $venda = $this->service->find($id,['with' => 'produtos']);
 
             // Verifica se objeto foi encontrado.
-            if (empty($produto)) {
+            if (empty($venda)) {
                 // Redireciona usuário para tela de consulta.
-                return redirect()->route('indexProduto')
+                return redirect()->route('indexVenda')
                     ->with('class', 'alert-warning')
-                    ->with('message', 'Produto não encontrado.');
+                    ->with('message', 'Venda não encontrada.');
             } else {
+                // Monta retorno de campos para a tela.
+                $listProdutos = [];
+                foreach($venda->products as $produto){
+                    $listAutores[] = $produto->id;
+                }
+
                 
+
+                $produtos = $this->serviceProduto->list();
+
+
                 $dados = array(
-                    'title_page'        => 'Atualizar Produto',
-                    'produto'             => $produto,
+                    'title_page'        => 'Atualizar Venda',
+                    'venda'             => $venda,
+                    'products'           => $produtos,
+                    'listProdutos'      => $listProdutos,
                     'MANTER'            => 'Atualizar'
                 );
 
                 // Retorna para a página de edição.
-                return view('produto/manter', $dados);
+                return view('venda/manter', $dados);
             }
         } catch (Exception $ex) {
             report($ex);
@@ -96,8 +116,8 @@ class ProdutoController extends Controller
 
     /**
      * @OA\Get(
-     *     path="/api/produto/list",
-     *     tags={"Produto"},
+     *     path="/api/venda/list",
+     *     tags={"Venda"},
      *     summary="Listar os Registros",
      *     @OA\Response(response="200", description="Success"),
      *     @OA\Response(response="404", description="Not Found"),
@@ -117,26 +137,14 @@ class ProdutoController extends Controller
 
     /**
      * @OA\Post(
-     ** path="/api/produto/create",
-     *   tags={"Produto"},
+     ** path="/api/venda/create",
+     *   tags={"Venda"},
      *   summary="Criar Registro",
      *   @OA\Parameter(
-     *      name="name",
+     *      name="amount",
      *      in="query",
      *      required=true,
-     *      @OA\Schema(type="string")
-     *   ),
-     *   @OA\Parameter(
-     *      name="price",
-     *      in="query",
-     *      required=true,
-     *      @OA\Schema(type="decimal")
-     *   ),
-     *   @OA\Parameter(
-     *      name="description",
-     *      in="query",
-     *      required=true,
-     *      @OA\Schema(type="string")
+     *     @OA\Schema(type="number",format="decimal")
      *   ),
      *   @OA\Response(response=201,description="Created"),
      *   @OA\Response(response=404,description="Not found"),
@@ -144,7 +152,7 @@ class ProdutoController extends Controller
      *   @OA\MediaType(mediaType="application/json")
      *)
      **/
-    public function create(ProdutoRequest $request)
+    public function create(VendaRequest $request)
     {
         try {
             return $this->service->create($request->validated());
@@ -156,32 +164,26 @@ class ProdutoController extends Controller
 
     /**
      * @OA\Put(
-     ** path="/api/produto/update",
-     *   tags={"Produto"},
+     ** path="/api/venda/update",
+     *   tags={"Venda"},
      *   summary="Atualizar Registro",
      *   @OA\Parameter(
-     *      name="id",
+     *      name="sales_id",
      *      in="query",
      *      required=true,
      *      @OA\Schema(type="integer")
      *   ),
      *   @OA\Parameter(
-     *      name="name",
+     *      name="amount",
      *      in="query",
      *      required=true,
      *      @OA\Schema(type="string")
      *   ),
      *   @OA\Parameter(
-     *      name="price",
+     *      name="products",
      *      in="query",
      *      required=true,
-     *      @OA\Schema(type="decimal")
-     *   ),
-     *   @OA\Parameter(
-     *      name="description",
-     *      in="query",
-     *      required=true,
-     *      @OA\Schema(type="string")
+     *      @OA\Schema(type="number",format="integer")
      *   ),
      *   @OA\Response(response=200,description="Updated"),
      *   @OA\Response(response=404,description="Not found"),
@@ -189,7 +191,7 @@ class ProdutoController extends Controller
      *   @OA\MediaType(mediaType="application/json")
      *)
      **/
-    public function update(ProdutoRequest $request)
+    public function update(VendaRequest $request)
     {
         try {
             if($this->service->update($request->validated())) {
@@ -203,11 +205,11 @@ class ProdutoController extends Controller
 
     /**
      * @OA\Delete(
-     ** path="/api/produto/delete",
-     *   tags={"Produto"},
+     ** path="/api/venda/delete",
+     *   tags={"Venda"},
      *   summary="Excluir Registro",
      *   @OA\Parameter(
-     *      name="id",
+     *      name="sales_id",
      *      in="query",
      *      required=true,
      *      @OA\Schema(type="integer")
@@ -218,7 +220,7 @@ class ProdutoController extends Controller
      *   @OA\MediaType(mediaType="application/json")
      *)
      **/
-    public function delete(ProdutoRequest $request)
+    public function delete(VendaRequest $request)
     {
         try {
             if($this->service->delete($request->validated())) {

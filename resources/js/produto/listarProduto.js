@@ -6,19 +6,19 @@ $(function () {
 
         if(confirm("Deseja realmente excluir este registro?")) {
             $.ajax({
-                url: "/api/autor/delete",
+                url: "/api/produto/delete",
                 type: "DELETE",
-                data: {CodAu:$(this).attr('cod')}
+                data: {id:$(this).attr('id')}
             }).done(function (resposta) {
 
-            toastr.success('Registro Excluído com sucesso!', 'Excluir Autor', { timeOut: 6000 });
+            toastr.success('Registro Excluído com sucesso!', 'Excluir Produto', { timeOut: 6000 });
 
-            setTimeout(window.location.href = "/autor/", 2000);
+            setTimeout(window.location.href = "/produto/", 2000);
 
             $("#spinnerLoading").hide();
             }).fail(function (xhr, textStatus) {
                 if(textStatus == 'error'){
-                    toastr.error('Erro ao tentar Excluir', 'Excluir Autor', { timeOut: 6000 });
+                    toastr.error('Erro ao tentar Excluir', 'Excluir Produto', { timeOut: 6000 });
                 }
                 $("#spinnerLoading").hide();
             });

@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => 'Livros',
+    'title' => 'Loja ABC LTDA',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -63,7 +63,7 @@ return [
     |
     */
 
-    'logo' => '<b>Livros</b>',
+    'logo' => '<b>Loja ABC LTDA</b>',
     'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
@@ -308,24 +308,14 @@ return [
             'icon'        => 'fa fa-fw fa-home',
         ],
         [
-            'text'        => 'Livro',
-            'url'         => 'livro/',
+            'text'        => 'Vendas',
+            'url'         => 'venda/',
             'icon'        => 'fa fa-fw fa-book',
         ],
         [
-            'text'        => 'Assunto',
-            'url'         => 'assunto/',
+            'text'        => 'Produtos',
+            'url'         => 'produto/',
             'icon'        => 'fa fa-fw fa-comment',
-        ],
-        [
-            'text'        => 'Autor',
-            'url'         => 'autor/',
-            'icon'        => 'fa fa-fw fa-address-book',
-        ],
-        [
-            'text'        => 'Relatório',
-            'url'         => 'relatorio/',
-            'icon'        => 'fa fa-fw fa-star',
         ],
     ],
 

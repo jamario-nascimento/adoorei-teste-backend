@@ -14,11 +14,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::prefix('/autor')->group(function () {
-    Route::get('/list', '\Modules\Autor\Controllers\AutorController@list')->name('listAutor');
-    Route::post('/create', '\Modules\Autor\Controllers\AutorController@create')->name('createAutor');
-    Route::put('/update', '\Modules\Autor\Controllers\AutorController@update')->name('updateAutor');
-    Route::delete('/delete', '\Modules\Autor\Controllers\AutorController@delete')->name('deleteAutor');
+Route::prefix('/produto')->group(function () {
+    Route::get('/list', '\Modules\Produto\Controllers\ProdutoController@list')->name('listProduto');
+    Route::post('/create', '\Modules\Produto\Controllers\ProdutoController@create')->name('createProduto');
+    Route::put('/update', '\Modules\Produto\Controllers\ProdutoController@update')->name('updateProduto');
+    Route::delete('/delete', '\Modules\Produto\Controllers\ProdutoController@delete')->name('deleteProduto');
+});
+
+Route::prefix('/venda')->group(function () {
+    Route::get('/list', '\Modules\Venda\Controllers\VendaController@list')->name('listVenda');
+    Route::post('/create', '\Modules\Venda\Controllers\VendaController@create')->name('createVenda');
+    Route::put('/update', '\Modules\Venda\Controllers\VendaController@update')->name('updateVenda');
+    Route::delete('/delete', '\Modules\Venda\Controllers\VendaController@delete')->name('deleteVenda');
 });
 
 

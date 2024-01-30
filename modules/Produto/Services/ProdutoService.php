@@ -53,9 +53,9 @@ class ProdutoService implements ProdutoServiceInterface
         return $this->produtoRepository->update($update);
     }
 
-    public function delete($livro)
+    public function delete($produto)
     {
-        $delete = $this->find($livro['id']);
+        $delete = $this->find($produto['id']);
 
         return $this->produtoRepository->delete($delete);
     }
