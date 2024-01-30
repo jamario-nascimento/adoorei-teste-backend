@@ -30,6 +30,6 @@ class VendasTable extends Migration
      */
     public function down()
     {
-        chema::dropIfExists('vendas');
+        Schema::dropIfExists('vendas');
     }
 }
