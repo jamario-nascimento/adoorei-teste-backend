@@ -35,7 +35,7 @@ class ProdutoRequest extends FormRequest
         // Remove caracteres especiais dos campos, deixando somente números.
         $value = str_replace('.','',$this['price']);
         $value = str_replace(',','.',$value);
-        $this['proce'] = $value;
+        $this['price'] = $value;
     }
 
     /**
@@ -72,8 +72,8 @@ class ProdutoRequest extends FormRequest
             $rules_update = [
                 'id' => [
                     'required',
-                    'unique:Produto,id,' . $this->id . ',id',
-                    'exists:Produto,id',
+                    'unique:Produtos,id,' . $this->id . ',id',
+                    'exists:Produtos,id',
                     'max:11'
                 ],
             ];
@@ -84,7 +84,7 @@ class ProdutoRequest extends FormRequest
         elseif ($this->route()->getActionMethod() == 'delete') {
             // Regras de exclusão
             $rules_destroy = [
-                'id' => new ExcludeProdutooRule(),
+                'id' => new ExcludeProdutoRule(),
             ];
 
             return $rules_destroy;

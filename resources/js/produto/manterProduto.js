@@ -21,7 +21,7 @@ $(function () {
             type: type,
             data: $("form").serialize()
         }).done(function (resposta) {
-            if (resposta.Nome != "") {
+            if (resposta.name != "") {
                 toastr.success('Registro efetuado com sucesso!', manter + ' Produto', { timeOut: 6000 });
                 if (manter != 'Atualizar') {
                     $("#name").val("");

@@ -9,10 +9,10 @@
         <div class="form-group col-sm-12 col-md-12 col-lg-12 col-xl-12">
             <h3 class="m-0" style="float:left"><i class="fa fa-fw fa-address-book"></i> Lista de Produtos</h3>
 
-            <a title="Adicionar" href="{{ route('cadastrarAutor') }}"  class="btn btn-primary float-right">
+            <!-- <a title="Adicionar" href="{{ route('cadastrarProduto') }}"  class="btn btn-primary float-right">
                 <i class="fa fa-plus"></i>
                 Adicionar
-            </a>
+            </a> -->
         </div>
     </div>
 
@@ -21,7 +21,7 @@
     @endpush
 
     @push('js')
-        <script src="{{ asset('js/listarProdutos.js') }}"></script>
+        <script src="{{ asset('js/listarProduto.js') }}"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     @endpush
 @stop
@@ -38,7 +38,7 @@
                         <tr class="text-secondary">
                             <th class="text-center" scope="col">Código</th>
                             <th scope="col">Nome</th>
-                            <th class="text-center" scope="col">Opções</th>
+                            <!-- <th class="text-center" scope="col">Opções</th> -->
                         </tr>
                     </thead>
 
@@ -49,7 +49,7 @@
                                     <td class="text-center">{{ $p->id }}</td>
                                     <td>{{ $p->name }}</td>
 
-                                    <td class="text-center">
+                                    <!-- <td class="text-center">
                                         <a title="Editar" href="{{ route('editarProduto', $p->id) }}" class="mr-3">
                                             <i class="fa fa-pen"></i>
                                         </a>
@@ -57,7 +57,7 @@
                                         <a id="excluir" class="excluir" title="Excluir" href="javascript:void(0)" cod="{{ $p->id }}">
                                             <i class="fa fa-trash"></i>
                                         </a>
-                                    </td>
+                                    </td> -->
                                 </tr>
                             @endforeach
                         @endif

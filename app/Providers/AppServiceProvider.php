@@ -21,6 +21,10 @@ class AppServiceProvider extends ServiceProvider
         // Produto
         $this->app->bind(\Modules\Produto\Repositories\Interfaces\ProdutoRepositoryInterface::class, \Modules\Produto\Repositories\ProdutoRepository::class);
         $this->app->bind(\Modules\Produto\Services\Interfaces\ProdutoServiceInterface::class, \Modules\Produto\Services\ProdutoService::class);
+
+        // Venda
+        $this->app->bind(\Modules\Venda\Repositories\Interfaces\VendaRepositoryInterface::class, \Modules\Venda\Repositories\VendaRepository::class);
+        $this->app->bind(\Modules\Venda\Services\Interfaces\VendaServiceInterface::class, \Modules\Venda\Services\VendaService::class);
     }
 
     /**

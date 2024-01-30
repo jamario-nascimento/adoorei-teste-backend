@@ -22,9 +22,10 @@ class ProdutoController extends Controller
      */
     public function index()
     {
+
         try {
             $produtos = $this->service->list();
-            return view('produto.listar', compact('produto'));
+            return view('produto.listar', compact('produtos'));
         } catch (Exception $ex) {
             report($ex);
             return response()->json(['message' => 'Falha ao efetuar a listagem Web'], 500);

@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Vennda\Repositories;
+namespace Modules\Venda\Repositories;
 
 use App\Http\Repositories\BaseRepository;
 use Modules\Venda\Entities\Venda;

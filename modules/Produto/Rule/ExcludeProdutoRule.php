@@ -1,10 +1,10 @@
 <?php
 
-namespace Modules\Livro\Rule;
+namespace Modules\Produto\Rule;
 
 use Illuminate\Contracts\Validation\Rule;
 
-class ExcludeLivroRule implements Rule
+class ExcludeProdutoRule implements Rule
 {
     /**
      * Create a new rule instance.
@@ -26,7 +26,6 @@ class ExcludeLivroRule implements Rule
     public function passes($attribute, $value)
     {
         // check if the record is already in use.
-        //$result = LivroLivro::where('Livro_Codl', $value)->count();
         //if ($result > 0) return false;
 
         return true;

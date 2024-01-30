@@ -39,10 +39,12 @@
 
                             <!-- Nome -->
                             <div class="form-group col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                                <label class="text-input">Nome *</label>
-                                <input id="name" name="name" type="text" class="form-control validarErro" value="{{ old('Name', $produto->name ?? null) }}" maxlength="40" autocomplete="off" required>
-                                <input id="price" name="price" type="number" class="form-control validarErro" value="{{ old('Price', $produto->price ?? null) }}" autocomplete="off" required>
-                                <input id="description" name="description" type="text" class="form-control validarErro" value="{{ old('Description', $produto->description ?? null) }}" maxlength="400" autocomplete="off" required>
+                                <label class="text-input">Name *</label>
+                                <input id="name" name="name" type="text" class="form-control validarErro" value="{{ old('name', $produto->name ?? null) }}" maxlength="40" autocomplete="off" required>
+                                <label class="text-input">Price *</label>
+                                <input id="price" name="price" type="number" class="form-control validarErro" value="{{ old('proce', $produto->price ?? null) }}" autocomplete="off" required>
+                                <label class="text-input">Description *</label>
+                                <input id="description" name="description" type="text" class="form-control validarErro" value="{{ old('description', $produto->description ?? null) }}" maxlength="400" autocomplete="off" required>
                                 <div class="invalid-feedback"></div>
 
                                 <label id="Nome-error" class='text-danger invalid-feedback' style="display: none"></label>

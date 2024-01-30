@@ -142,11 +142,11 @@ docker-compose exec php-fpm php artisan migrate
 
 ## Gerar popular dados
 
-docker-compose exec php-fpm php artisan db:seede
+docker-compose exec php-fpm php artisan db:seed
 
 ## Teste de código
 
-docker-compose exec php-fpm php artisan test 
+docker-compose exec php-fpm php artisan test
 
 
 ## Documentação - Swagger API
