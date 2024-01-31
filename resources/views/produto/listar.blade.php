@@ -37,8 +37,9 @@
                     <thead class="thead-light">
                         <tr class="text-secondary">
                             <th class="text-center" scope="col">Código</th>
-                            <th scope="col">Nome</th>
-                            <!-- <th class="text-center" scope="col">Opções</th> -->
+                            <th scope="col">Name</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Description</th>
                         </tr>
                     </thead>
 
@@ -48,16 +49,8 @@
                                 <tr>
                                     <td class="text-center">{{ $p->id }}</td>
                                     <td>{{ $p->name }}</td>
-
-                                    <!-- <td class="text-center">
-                                        <a title="Editar" href="{{ route('editarProduto', $p->id) }}" class="mr-3">
-                                            <i class="fa fa-pen"></i>
-                                        </a>
-
-                                        <a id="excluir" class="excluir" title="Excluir" href="javascript:void(0)" cod="{{ $p->id }}">
-                                            <i class="fa fa-trash"></i>
-                                        </a>
-                                    </td> -->
+                                    <td>{{ number_format($p->price,3,",",".") }}</td>
+                                    <td>{{ $p->description }}</td>
                                 </tr>
                             @endforeach
                         @endif

@@ -16,10 +16,8 @@ class ProdutosTable extends Migration
         Schema::create('produtos', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->float('price',8,2);
-            $table->string('description',400);
-            $table->timestamps();
-            $table->softDeletes();
+            $table->decimal('price', 10, 2);
+            $table->string('description');
         });
     }
     /**

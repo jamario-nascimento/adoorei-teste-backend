@@ -2,30 +2,30 @@
 
 namespace Tests\Feature;
 
-use Modules\Autor\Entities\Autor;
+use Modules\Produto\Entities\Produto;
 use Tests\TestCase;
 
-class AutorTest extends TestCase
+class ProdutoTest extends TestCase
 {
-    protected $service = Autor::class;
+    protected $service = Produto::class;
 
     /**
      * @test
      */
     public function testStatusCodeShouldBe200()
     {
-        $this->get(route('listAutor'),)->assertStatus(200);
+        $this->get(route('listProduto'),)->assertStatus(200);
     }
 
     /**
      * @test
      */
-    public function testShouldCreateAutor()
+    public function testShouldCreateProduto()
     {
 
         $autor = factory($this->service)->make();
 
-        $response = $this->postJson(route('createAutor'),$autor->toArray());
+        $response = $this->postJson(route('createProduto'),$autor->toArray());
 
         $response->assertCreated();
         $response->assertStatus(201);

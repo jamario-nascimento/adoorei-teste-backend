@@ -13,9 +13,13 @@ class VendaSeeder extends Seeder
     public function run()
     {
         DB::table('vendas')->insert([
-            'sales_id'  => 'Celular 1',
+            'sales_id'  => 456754,
             'amount'  => 1.800,
-            'products'    => [1,2],
+        ]);
+
+        DB::table('venda_produto')->insert([
+            'venda_id'  => 1,
+            'produto_id'  => 1,
         ]);
     }
 }

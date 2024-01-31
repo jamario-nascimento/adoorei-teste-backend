@@ -131,6 +131,10 @@ docker-compose exec php-fpm composer install
 
 docker-compose exec php-fpm npm install
 
+## Atualizar possiveis mudanças nos resources JS
+
+docker-compose exec php-fpm npm run dev
+
 ## Limpar o cache do Laravel
 
 docker-compose exec php-fpm php artisan config:clear

@@ -9,7 +9,9 @@ use Modules\Venda\Services\Interfaces\VendaServiceInterface;
 use Exception;
 use Modules\Produto\Services\Interfaces\ProdutoServiceInterface;
 
-
+/**
+ * @OA\Info(title="Venda", version="0.1")
+ */
 class VendaController extends Controller
 {
     protected $service;
@@ -29,6 +31,7 @@ class VendaController extends Controller
     {
         try {
             $vendas = $this->service->list();
+           
             return view('venda.listar', compact('vendas'));
         } catch (Exception $ex) {
             report($ex);
@@ -48,19 +51,54 @@ class VendaController extends Controller
             $dados = array(
                 'title_page'        => 'Cadastrar Venda',
                 'amount'             => null,
-                'products'           => $produtos,
+                'sales_id'           => null,
+                'produtos'           => $produtos,
                 'listProdutos'       => [],
                 'MANTER'            => 'Cadastrar'
             );
 
             // Retorna para a página de edição.
-            return view('livro/manter', $dados);
+            return view('venda/manter', $dados);
 
         } catch (Exception $ex) {
             report($ex);
             return response()->json(['message' => 'Falha ao efetuar a listagem Web'], 500);
         }
     }
+
+    /**
+     * Edição dos dados para WEB
+     */
+    public function cadastrar()
+    {
+        try {
+
+            $produtos = $this->serviceProduto->list();
+
+            // Verifica se objeto foi encontrado.
+            if (empty($produtos)) {
+                // Redireciona usuário para tela de consulta.
+                return redirect()->route('indexVenda')
+                    ->with('class', 'alert-warning')
+                    ->with('message', 'Venda não encontrada.');
+            } else {
+                // Monta retorno de campos para a tela.
+
+                // Retorna para a página de edição.
+                $dados = array(
+                    'title_page'        => 'Cadastrar Venda',
+                    'produtos'           => $produtos,
+                    'listProdutos'       => [],
+                    'MANTER'            => 'Cadastrar'
+                );
+                return view('venda/manter', $dados);
+            }
+        } catch (Exception $ex) {
+            report($ex);
+            return response()->json(['message' => 'Falha ao efetuar a listagem Web'], 500);
+        }
+    }
+
 
     /**
      * Edição dos dados para WEB
@@ -78,7 +116,6 @@ class VendaController extends Controller
             }
 
             $venda = $this->service->find($id,['with' => 'produtos']);
-
             // Verifica se objeto foi encontrado.
             if (empty($venda)) {
                 // Redireciona usuário para tela de consulta.
@@ -88,8 +125,8 @@ class VendaController extends Controller
             } else {
                 // Monta retorno de campos para a tela.
                 $listProdutos = [];
-                foreach($venda->products as $produto){
-                    $listAutores[] = $produto->id;
+                foreach($venda->produtos as $produto){
+                    $listProdutos[] = $produto->id;
                 }
 
                 
@@ -100,7 +137,7 @@ class VendaController extends Controller
                 $dados = array(
                     'title_page'        => 'Atualizar Venda',
                     'venda'             => $venda,
-                    'products'           => $produtos,
+                    'produtos'           => $produtos,
                     'listProdutos'      => $listProdutos,
                     'MANTER'            => 'Atualizar'
                 );
@@ -145,6 +182,12 @@ class VendaController extends Controller
      *      in="query",
      *      required=true,
      *     @OA\Schema(type="number",format="decimal")
+     *   ),
+     *   *   @OA\Parameter(
+     *      name="sales_id",
+     *      in="query",
+     *      required=true,
+     *     @OA\Schema(type="string")
      *   ),
      *   @OA\Response(response=201,description="Created"),
      *   @OA\Response(response=404,description="Not found"),

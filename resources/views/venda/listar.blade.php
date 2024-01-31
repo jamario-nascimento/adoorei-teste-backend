@@ -38,8 +38,8 @@
                         <tr class="text-secondary">
                             <th class="text-center" scope="col">Sale ID</th>
                             <th scope="col">Amount</th>
-                            <th scope="col">Products</th>
-                            <!-- <th class="text-center" scope="col">Opções</th> -->
+                            <th scope="col">Produtos</th>
+                            <th class="text-center" scope="col">Opções</th>
                         </tr>
                     </thead>
 
@@ -48,18 +48,18 @@
                             @foreach ($vendas as $p)
                                 <tr>
                                     <td class="text-center">{{ $p->sales_id }}</td>
-                                    <td>{{ $p->amount }}</td>
-                                    <td>{{ $p->Products }}</td>
+                                    <td>{{ number_format($p->amount,3,",",".") }}</td>
+                                    <td>{{ $p->produtos->name }}</td>
 
-                                    <!-- <td class="text-center">
-                                        <a title="Editar" href="{{ route('editarLivro', $p->Codl) }}" class="mr-3">
+                                    <td class="text-center">
+                                        <a title="Editar" href="{{ route('editarVenda', $p->sales_id) }}" class="mr-3">
                                             <i class="fa fa-pen"></i>
                                         </a>
 
-                                        <a id="excluir" class="excluir" title="Excluir" href="javascript:void(0)" cod="{{ $p->Codl }}">
+                                        <a id="excluir" class="excluir" title="Excluir" href="javascript:void(0)" cod="{{ $p->sales_id }}">
                                             <i class="fa fa-trash"></i>
                                         </a>
-                                    </td> -->
+                                    </td>
                                 </tr>
                             @endforeach
                         @endif

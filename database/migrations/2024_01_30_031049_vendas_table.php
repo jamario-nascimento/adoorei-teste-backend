@@ -14,12 +14,10 @@ class VendasTable extends Migration
     public function up()
     {
         Schema::create('vendas', function (Blueprint $table) {
-            $table->bigIncrements('sales_id');
-            $table->float('amount',8,2);
-            $table->float('price',8,2);
-            $table->unsignedBigInteger('products_id');
+            $table->id();
+            $table->string('sales_id');
+            $table->decimal('amount', 10, 2);
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 

@@ -23,11 +23,9 @@ Route::prefix('/produto')->group(function () {
 
 Route::prefix('/venda')->group(function () {
     Route::get('/', '\Modules\Venda\Controllers\VendaController@index')->name('indexVenda');
-    Route::view('/cadastrar', 'Venda/manter')->name('cadastrarVenda');
+    Route::get('/register','\Modules\Venda\Controllers\VendaController@register')->name('cadastrarVenda');
     Route::get('/editar/{id?}','\Modules\Venda\Controllers\VendaController@edit')->name('editarVenda');
 });
-
-
 
 
 

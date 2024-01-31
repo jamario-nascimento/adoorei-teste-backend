@@ -54,7 +54,8 @@ class VendaRequest extends FormRequest
                 'required',
                 'min:1',
             ],
-            'products' => [
+            'sales_id' => [
+                'required',
                 'min:0',
             ],
         ];
@@ -66,10 +67,10 @@ class VendaRequest extends FormRequest
         // update
         elseif ($this->route()->getActionMethod() == 'update') {
             $rules_update = [
-                'sales_id' => [
+                'id' => [
                     'required',
-                    'unique:Venda,sales_id,' . $this->sales_id . ',sales_id',
-                    'exists:Venda,sales_id',
+                    'unique:venda,id,' . $this->id . ',id',
+                    'exists:venda,id',
                     'max:11'
                 ],
             ];
@@ -80,7 +81,7 @@ class VendaRequest extends FormRequest
         elseif ($this->route()->getActionMethod() == 'delete') {
             // Regras de exclusão
             $rules_destroy = [
-                'Codl' => new ExcludeVendaRule(),
+                'id' => new ExcludeVendaRule(),
             ];
 
             return $rules_destroy;
@@ -109,8 +110,7 @@ class VendaRequest extends FormRequest
     {
         $result = [
             'sales_id'  => 'Identificador',
-            'amount'    => 'Quantidade',
-            'products'  => 'Produtos',
+            'amount'    => 'Quantidade'
         ];
 
         return $result;

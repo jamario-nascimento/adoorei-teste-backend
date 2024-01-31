@@ -10,7 +10,7 @@ $factory->define(Produto::class, function (Faker $faker) {
     return [
         'id' => $max + 1,
         'name' => $faker->name($faker->name(40)),
-        'price' => $faker->name($faker->numberBetween(10, 40)),
+        'price' => $faker->numberBetween(1,5000),
         'description' => $faker->name($faker->text(400)),
     ];
 });

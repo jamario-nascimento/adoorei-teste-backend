@@ -3,6 +3,7 @@
 namespace Modules\Venda\Services;
 
 use Illuminate\Support\Facades\DB;
+use Modules\Venda\Entities\Venda;
 use Modules\Venda\Repositories\Interfaces\VendaRepositoryInterface;
 use Modules\Venda\Services\Interfaces\VendaServiceInterface;
 
@@ -28,28 +29,29 @@ class VendaService implements VendaServiceInterface
 
     public function create(array $venda)
     {
+        $venda['amount'] = $venda['amount'];
         $venda['sales_id'] = $venda['sales_id'];
 
         DB::beginTransaction();
-        $objVenda = $this->vendaRepository->create($venda);
-
-        $auxProduto = $this->find($objVenda->sales_id,['with' => ['products']]);
-
-        $auxProduto->assuntos()->attach($venda['products']);
+        $objVenda = $this->vendaRepository->create($venda); 
+        $auxVenda = $this->find($objVenda->id,['with' => ['produtos']]);
+        $auxVenda->produtos()->attach($venda['produtos']);
         DB::commit();
+ 
         return $objVenda;
+
     }
 
     public function update(array $venda)
     {
         DB::beginTransaction();
-        $update = $this->find($venda['sales_id'],['with' => ['products']]);
+        $update = $this->find($venda['sales_id'],['with' => ['produtos']]);
         $update['amount'] = $venda['amount'];
 
         $update->produtos()->detach($update->products);
 
-        if(!empty($venda['Produtos'])) {
-            $update->produtos()->attach($venda['products']);
+        if(!empty($venda['produtos'])) {
+            $update->produtos()->attach($venda['produtos']);
         }
         DB::commit();
         return $this->vendaRepository->update($update);
@@ -57,7 +59,7 @@ class VendaService implements VendaServiceInterface
 
     public function delete($venda)
     {
-        $delete = $this->find($venda['sales_id'],['with' => ['products']]);
+        $delete = $this->find($venda['sales_id'],['with' => ['produtos']]);
 
         $delete->produtos()->detach($delete->produtos);
 

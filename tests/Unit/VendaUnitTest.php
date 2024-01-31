@@ -2,10 +2,10 @@
 
 namespace Tests\Unit;
 
-use Modules\Autor\Entities\Autor;
+use Modules\Venda\Entities\Venda;
 use PHPUnit\Framework\TestCase;
 
-class AutorUnitTest extends TestCase
+class VendaUnitTest extends TestCase
 {
     /**
      * A basic test example.
@@ -14,13 +14,14 @@ class AutorUnitTest extends TestCase
      */
     public function testCheckColumnsTest()
     {
-        $autor = new Autor();
+        $livro = new Venda();
 
         $expected = [
-            'Nome'
+            'amount',
+            'sales_id',
         ];
 
-        $arrayCompared = array_diff($expected, $autor->getFillable());
+        $arrayCompared = array_diff($expected, $livro->getFillable());
 
         $this->assertEquals(0, count($arrayCompared));
     }

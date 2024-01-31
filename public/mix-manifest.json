@@ -1,10 +1,10 @@
 {
     "/js/app.js": "/js/app.js",
-    "/css/app.css": "/css/app.css",
-    "/js/listarProduto.js": "/js/listarProduto.js",
-    "/js/listarVenda.js": "/js/listarVenda.js",
-    "/js/manterProduto.js": "/js/manterProduto.js",
-    "/js/manterVenda.js": "/js/manterVenda.js",
     "/js/required.js": "/js/required.js",
-    "/js/utils.js": "/js/utils.js"
+    "/js/utils.js": "/js/utils.js",
+    "/js/listarProduto.js": "/js/listarProduto.js",
+    "/js/manterProduto.js": "/js/manterProduto.js",
+    "/js/listarVenda.js": "/js/listarVenda.js",
+    "/js/manterVenda.js": "/js/manterVenda.js",
+    "/css/app.css": "/css/app.css"
 }
